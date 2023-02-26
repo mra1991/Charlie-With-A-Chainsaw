@@ -27,10 +27,61 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadMain()
     {
-//        Scene currentScene = SceneManager.GetActiveScene();
-        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-        async = SceneManager.LoadSceneAsync(0);
-        async.allowSceneActivation = true;
+        StartCoroutine(LoadMainMenu());
+    }
+
+    IEnumerator LoadMainMenu()
+    {
+        if (async == null)
+        {
+            SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+            async = SceneManager.LoadSceneAsync(0);
+            async.allowSceneActivation = true;
+        }
+        yield return null;
+    }
+
+    public void NewGame()
+    {
+        GameManager.Instance.level = 0;
+        PlayerPrefs.SetInt("level", 0);
+        PlayerPrefs.Save();
+        GameManager.Instance.PauseOrPlay();
+        StartCoroutine(LoadMainScene());
+    }
+
+    IEnumerator LoadMainScene()
+    {
+        if (async == null)
+        {
+            SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+            async = SceneManager.LoadSceneAsync(2);
+            async.allowSceneActivation = true;
+        }
+        yield return null;
+    }
+
+    public void LoadArenaScene()
+    {
+        if(SceneManager.GetActiveScene().buildIndex != 3)
+        {
+            StartCoroutine(LoadArena());
+        }
+    }
+    IEnumerator LoadArena()
+    {
+        if (async == null)
+        {
+            SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+            async = SceneManager.LoadSceneAsync(3);
+            async.allowSceneActivation = true;
+        }
+        yield return null;
+    }
+
+    public bool IsArenaScene()
+    {
+        return SceneManager.GetActiveScene().buildIndex == 3;
     }
 
     public void LoadNextScene()

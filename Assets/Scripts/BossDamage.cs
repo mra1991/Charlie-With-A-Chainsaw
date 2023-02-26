@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+//using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BossDamage : MonoBehaviour
@@ -82,7 +82,7 @@ public class BossDamage : MonoBehaviour
     private void DestroyEnemy()
     {
         
-        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+        //SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
         SceneLoader.Instance.LoadNextScene();
         //Destroy(gameObject);
     }

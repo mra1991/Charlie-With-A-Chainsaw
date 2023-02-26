@@ -78,12 +78,19 @@ public class GameManager : MonoBehaviour
         level =  PlayerPrefs.GetInt("level", 0);
         if (level < 4)
         {
-            player.position = checkPoints[level].position;
-            for (int i = 0; i < level; i++)
+            if (!SceneLoader.Instance.IsArenaScene())
             {
-                mainCamera.GetComponent<CameraRotator>().RotateClockwise();
-                mapCamera.GetComponent<MapRotator>().RotateMapClockwise();
+                player.position = checkPoints[level].position;
+                for (int i = 0; i < level; i++)
+                {
+                    mainCamera.GetComponent<CameraRotator>().RotateClockwise();
+                    mapCamera.GetComponent<MapRotator>().RotateMapClockwise();
+                }
             }
+        }
+        else
+        {
+            SceneLoader.Instance.LoadArenaScene();
         }
     }
 
@@ -97,7 +104,8 @@ public class GameManager : MonoBehaviour
         switch (newState)
         {
             case GameState.GamePlay:
-                mapCamera.GetComponent<Camera>().enabled = true;
+                if (mapCamera)
+                    mapCamera.GetComponent<Camera>().enabled = true;
                 break;
             case GameState.GamePause:
                 break;

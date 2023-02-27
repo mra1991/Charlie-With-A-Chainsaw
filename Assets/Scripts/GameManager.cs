@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour
             case GameState.GamePause:
                 break;
             case GameState.Death:
-                Invoke("ReInitScene", 2f);
+                Invoke("ReInitScene", 1f);
                 break;
             case GameState.Cutscene:
                 Player.GetComponent<PlayerControl>().ResetMoveDirection();
@@ -129,6 +129,11 @@ public class GameManager : MonoBehaviour
         }
 
         OnGameStateChanged?.Invoke(newState); // Notify other scripts through event that game state has changed (condition avoids null exception error)
+    }
+
+    public void ReInitScene()
+    {
+        SceneLoader.Instance.ReLoadScene();
     }
 
     private void Win()

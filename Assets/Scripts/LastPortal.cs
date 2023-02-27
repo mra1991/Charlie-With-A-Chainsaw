@@ -20,10 +20,10 @@ public class LastPortal : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            SceneLoader.Instance.LoadNextScene();
             GameManager.Instance.level = 4;
             PlayerPrefs.SetInt("level", 4);
             PlayerPrefs.Save();
+            SceneLoader.Instance.LoadNextScene();
         }
     }
 }

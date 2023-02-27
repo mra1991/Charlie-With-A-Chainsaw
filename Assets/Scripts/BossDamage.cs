@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BossDamage : MonoBehaviour
@@ -43,7 +42,6 @@ public class BossDamage : MonoBehaviour
             if (IsDead)
             {
                 Destroy(parentImage);
-                GameManager.Instance.UpdateGameState(GameState.Win);
                 DeathOfBoss();
             }
         }
@@ -76,14 +74,13 @@ public class BossDamage : MonoBehaviour
             rb.AddForce(transform.up * Random.Range(minForce, maxForce), ForceMode.Impulse);
             rb.AddForce(transform.forward * Random.Range(minForce, maxForce), ForceMode.Impulse);
         }
-        Invoke("DestroyEnemy", 5f);
+        Invoke("DestroyEnemy", 1f);
     }
 
     private void DestroyEnemy()
     {
-        
-        //SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-        SceneLoader.Instance.LoadNextScene();
+        //SceneLoader.Instance.LoadNextScene();
         //Destroy(gameObject);
+        GameManager.Instance.UpdateGameState(GameState.Win);
     }
 }

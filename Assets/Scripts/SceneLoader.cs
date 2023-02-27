@@ -55,7 +55,7 @@ public class SceneLoader : MonoBehaviour
         if (async == null)
         {
             SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-            async = SceneManager.LoadSceneAsync(2);
+            async = SceneManager.LoadSceneAsync(1);
             async.allowSceneActivation = true;
         }
         yield return null;
@@ -94,6 +94,7 @@ public class SceneLoader : MonoBehaviour
         if (async == null)
         {
             Scene currentScene = SceneManager.GetActiveScene();
+            SceneManager.UnloadSceneAsync(currentScene);
             async = SceneManager.LoadSceneAsync(currentScene.buildIndex + 1);
             async.allowSceneActivation = true;
         }
@@ -111,11 +112,20 @@ public class SceneLoader : MonoBehaviour
         if (async == null)
         {
             Scene currentScene = SceneManager.GetActiveScene();
+            SceneManager.UnloadSceneAsync(currentScene);
             async = SceneManager.LoadSceneAsync(currentScene.buildIndex);
             async.allowSceneActivation = true;
         }
         yield return null;
     }
 
-    
+    public void Quit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
 }

@@ -26,6 +26,12 @@ public class MainToSetting : MonoBehaviour
         Invoke("ActivatePanel", 0.4f);
     }
 
+    public void PanelToggleRegular(int pos)
+    {
+        position = pos;
+        ActivatePanel();
+    }
+
     public void ActivatePanel()
     {
         for (int i = 0; i < panels.Length; i++) //for all the panels in my array

@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("level", 0);
         PlayerPrefs.Save();
         PauseOrPlay();
-        ReInitScene();
+        SceneLoader.Instance.ReLoadScene();
     }
 
     private void GotoLevel()
@@ -118,6 +118,9 @@ public class GameManager : MonoBehaviour
                     mapCamera.GetComponent<Camera>().enabled = false;
                 break;
             case GameState.Win:
+
+                Win();
+
                 break;
             case GameState.Main:
                 break;
@@ -128,15 +131,25 @@ public class GameManager : MonoBehaviour
         OnGameStateChanged?.Invoke(newState); // Notify other scripts through event that game state has changed (condition avoids null exception error)
     }
 
-    public void ReInitScene()
+    private void Win()
     {
-        SceneLoader.Instance.ReLoadScene();
+        if (!pause)
+        {
+            pause = true;
+            //swap current and old time scales
+            float temp = oldTime;
+            oldTime = Time.timeScale;
+            Time.timeScale = temp;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        selectMenu.PanelToggle(1); //show credits panel
     }
 
     //to be called only from OnPause input action
     public void PauseOrPlay()
     {
-        if (state != GameState.Death)
+        if (state != GameState.Death && state != GameState.Win)
         {
             pause = !pause;
             selectMenu.PanelToggle(pause ? 0 : -1); //show first panel/hide all panels

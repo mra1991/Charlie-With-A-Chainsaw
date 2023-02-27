@@ -14,6 +14,8 @@ public class MainToSetting : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         yield return new WaitForFixedUpdate();
         PanelToggle(0);
     }

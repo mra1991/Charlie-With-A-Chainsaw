@@ -27,6 +27,10 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadMain()
     {
+        if(GameManager.Instance.state == GameState.Win)
+            GameManager.Instance.state = GameState.GamePause;
+        if (GameManager.Instance.state == GameState.GamePause)
+            GameManager.Instance.PauseOrPlay();
         StartCoroutine(LoadMainMenu());
     }
 

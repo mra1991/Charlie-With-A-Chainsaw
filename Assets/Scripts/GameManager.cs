@@ -118,9 +118,7 @@ public class GameManager : MonoBehaviour
                     mapCamera.GetComponent<Camera>().enabled = false;
                 break;
             case GameState.Win:
-
                 Win();
-
                 break;
             case GameState.Main:
                 break;
